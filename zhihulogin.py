@@ -83,8 +83,8 @@ if __name__ == '__main__':
     obj.get_index()
 
 """
-1. 首先要获取登录的二维码图片，经过分析发现一个问题
-    a>url图片的地址中有一个随机的字符串；https://www.zhihu.com/api/v3/account/api/login/qrcode/fOq7nCDCQemA1zs7/image。
+1. 首先需要获取登录的二维码图片，经过分析发现一个问题
+    a>url图片的地址中有一个随机字符串；https://www.zhihu.com/api/v3/account/api/login/qrcode/fOq7nCDCQemA1zs7/image。
 2. 需要分析随机字符串fOq7nCDCQemA1zs7的来源，发现是通过向https://www.zhihu.com/api/v3/account/api/login/qrcode发送一个POST请求，会返回一个JSON字符串，其中就包含这个随机字符串，但是在向它发送POST请求的时候，需要携带5个Cookie，所以，需要继续分析这5个Cookie的来源；
     注意：一般Cookie的值是服务端返回的，服务端向客户端传递数据一般通过Response Headers或者Reponse Body进行传递，所以重点观察Url中是否有Set-Cookie以及响应体中是否携带Cookie的值。
 3. 由于登录需要的这个5个Cookie并不是一次性返回的，所以在抓包的时候一定要从第一个起始url(https://www.zhihu.com/signup?next=%2F)开始抓取，在抓取时同样注意不要切换 "知乎首页" 和 "设置"这两个选项卡，因为从别的选项卡切换到知乎选项卡，知乎默认是会发起请求，并且请求中携带重要的Cookie值。
